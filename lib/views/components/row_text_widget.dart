@@ -1,4 +1,6 @@
+import 'package:connectus_dummy/utils/color_set.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class RowTextWidget extends StatefulWidget {
   final String text;
@@ -20,8 +22,8 @@ class _RowTextWidgetState extends State<RowTextWidget> {
       child: Text(widget.text,
       style: TextStyle(
         fontWeight: widget.isLabel ? FontWeight.bold : FontWeight.normal,
-        fontSize: widget.isLabel ? 16.0 : 14.0,
-
+        fontSize: widget.isLabel ? 18.0 : 14.0,
+        color: widget.isLabel ? ColorSet.labelText : Colors.blueGrey
       ),),
     );
   }

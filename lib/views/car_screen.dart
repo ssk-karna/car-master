@@ -7,9 +7,14 @@ import '../utils/color_set.dart';
 import '../viewmodels/car_viewmodel.dart';
 import 'components/row_text_widget.dart';
 
-class CarScreen extends StatelessWidget {
+class CarScreen extends StatefulWidget {
   final CarViewModel carViewModel = CarViewModel();
 
+  @override
+  State<CarScreen> createState() => _CarScreenState();
+}
+
+class _CarScreenState extends State<CarScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,7 +42,7 @@ class CarScreen extends StatelessWidget {
             ),
             Expanded(
               child: FutureBuilder<CarResponse>(
-              future: carViewModel.fetchCarData(),
+              future: widget.carViewModel.fetchCarData(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
@@ -63,114 +68,117 @@ class CarScreen extends StatelessWidget {
                       ),
                         child: Card(
                           color: ColorSet.primaryBackground,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                            Table(
+                            border: TableBorder.all(color: Colors.transparent),// Remove borders
                             children: [
-                          Table(
-                          border: TableBorder.all(color: Colors.transparent), // Remove borders
-                          children: [
-                            // Add rows as TableRow widgets
-                            TableRow(
-                              children: [
-                                TableCell(
+                              // Add rows as TableRow widgets
+                              TableRow(
+                                children: [
+                                  TableCell(
+                                      child: Align(
+                                          alignment: Alignment.centerLeft ,
+                                          child: RowTextWidget(text:"${Strings.rc_no} :", isLabel: true,))
+                                  ),
+                                  TableCell(
+                                      child: RowTextWidget(text:"${carData.rcNumber}")
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  TableCell(
+                                      child: Align(
+                                          alignment: Alignment.centerLeft ,
+                                          child: RowTextWidget(text:"${Strings.car_name} :", isLabel: true,))
+                                  ),
+                                  TableCell(
+                                      child: RowTextWidget(text:"${carData.model}")
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  TableCell(
+                                      child: Align(
+                                          alignment: Alignment.centerLeft ,
+                                          child: RowTextWidget(text:"${Strings.model} :", isLabel: true,))
+                                  ),
+                                  TableCell(
+                                      child: RowTextWidget(text:"${carData.model}")
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  TableCell(
                                     child: Align(
-                                        alignment: Alignment.centerRight ,
-                                        child: RowTextWidget(text:"${Strings.rc_no} :", isLabel: true,))
-                                ),
-                                TableCell(
-                                    child: RowTextWidget(text:"${carData.rcNumber}")
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                TableCell(
-                                    child: Align(
-                                        alignment: Alignment.centerRight ,
-                                        child: RowTextWidget(text:"${Strings.car_name} :", isLabel: true,))
-                                ),
-                                TableCell(
-                                    child: RowTextWidget(text:"${carData.model}")
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                TableCell(
-                                    child: Align(
-                                        alignment: Alignment.centerRight ,
-                                        child: RowTextWidget(text:"${Strings.model} :", isLabel: true,))
-                                ),
-                                TableCell(
-                                    child: RowTextWidget(text:"${carData.model}")
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                TableCell(
-                                  child: Align(
-                                      alignment: Alignment.centerRight ,
-                                      child: RowTextWidget(text:"${Strings.capacity} :", isLabel: true,))
-                                ),
-                                TableCell(
-                                  child: RowTextWidget(text:"${carData.capacity}")
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                TableCell(
-                                    child: Align(
-                                        alignment: Alignment.centerRight ,
-                                        child: RowTextWidget(text:"${Strings.attachments} :", isLabel: true,))
-                                ),
-                                TableCell(
-                                    child: RowTextWidget(text:"")
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                TableCell(
-                                    child: Align(
-                                        alignment: Alignment.centerRight ,
-                                        child: RowTextWidget(text:"1 : ${Strings.carPhoto}", isLabel: true,))
-                                ),
-                                TableCell(
-                                    child: RowTextWidget(text:"")
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                TableCell(
-                                    child: Align(
-                                        alignment: Alignment.centerRight ,
-                                        child: RowTextWidget(text:"2 : ${Strings.carInsurance}", isLabel: true,))
-                                ),
-                                TableCell(
-                                    child: RowTextWidget(text:"")
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                TableCell(
-                                    child: Align(
-                                        alignment: Alignment.centerRight ,
-                                        child: RowTextWidget(text:"3 : ${Strings.carRC}", isLabel: true,))
-                                ),
-                                TableCell(
-                                    child: RowTextWidget(text:"")
-                                ),
-                              ],
-                            ),
-                          ],
-                          ),
-                              CustomCardWithImages(imageUrls: carViewModel.getImageUrls(carData))
+                                        alignment: Alignment.centerLeft ,
+                                        child: RowTextWidget(text:"${Strings.capacity} :", isLabel: true,))
+                                  ),
+                                  TableCell(
+                                    child: RowTextWidget(text:"${carData.capacity}", isLabel: true,)
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  TableCell(
+                                      child: Align(
+                                          alignment: Alignment.centerLeft ,
+                                          child: RowTextWidget(text:"${Strings.attachments} :", isLabel: true,))
+                                  ),
+                                  TableCell(
+                                      child: RowTextWidget(text:"")
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  TableCell(
+                                      child: Align(
+                                          alignment: Alignment.centerLeft ,
+                                          child: RowTextWidget(text:"1 : ${Strings.carPhoto}", isLabel: true,))
+                                  ),
+                                  TableCell(
+                                      child: RowTextWidget(text:"")
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  TableCell(
+                                      child: Align(
+                                          alignment: Alignment.centerLeft ,
+                                          child: RowTextWidget(text:"2 : ${Strings.carInsurance}", isLabel: true,))
+                                  ),
+                                  TableCell(
+                                      child: RowTextWidget(text:"")
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                children: [
+                                  TableCell(
+                                      child: Align(
+                                          alignment: Alignment.centerLeft ,
+                                          child: RowTextWidget(text:"3 : ${Strings.carRC}", isLabel: true,))
+                                  ),
+                                  TableCell(
+                                      child: RowTextWidget(text:"")
+                                  ),
+                                ],
+                              ),
                             ],
+                            ),
+                                CustomCardWithImages(imageUrls: widget.carViewModel.getImageUrls(carData))
+                              ],
+                            ),
                           ),
                         ),
                       );

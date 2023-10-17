@@ -1,3 +1,4 @@
+import 'package:connectus_dummy/utils/color_set.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
@@ -15,8 +16,10 @@ class _CustomCardWithImagesState extends State<CustomCardWithImages> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4, // Adjust the card's elevation as needed
-      margin: EdgeInsets.all(16), // Add margin around the card
+      elevation: 8, // Adjust the card's elevation as needed
+      margin: EdgeInsets.all(16),
+      shadowColor: Colors.blue,
+      // Add margin around the card
 
       child: Row(
         children: widget.imageUrls.map((imageUrl) {
